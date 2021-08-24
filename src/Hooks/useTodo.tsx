@@ -46,10 +46,11 @@ export const useTodo = () => {
   const loadData = () => {
     let data = localStorage.getItem('todos');
 
-    if (data === JSON.stringify(null)) {
+    if (!data) {
       data = '';
+    } else {
+      initialTodos = JSON.parse(data);
     }
-    initialTodos = JSON.parse(data!);
 
     if (initialTodos && initialTodos.length >= 1) {
       loadNextId(initialTodos);
