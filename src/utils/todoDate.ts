@@ -1,4 +1,7 @@
-export interface IDate {
+type StringDate = string;
+type NumberDate = number;
+
+interface IDate {
   year: string;
   month: string;
   day: string;
@@ -8,11 +11,14 @@ export class TodoDate {
   private krTimeDiffZone = 9 * 60 * 60 * 1000;
   private regex = /(\d{4}). (\d{1,2}). (\d{1,2})/;
 
-  getDate(): string {
-    const today = this.getKST().toLocaleString('ko-KR');
-    const { year, month, day } = this.changeString(today) as IDate;
+  getNumber(): NumberDate {
+    return this.getKST().getTime();
+  }
 
-    return `${year}-${month}-${day}`;
+  convertToString(number: NumberDate): StringDate {
+    const kst = new Date(number);
+
+    return this.getString(kst);
   }
 
   private getKST(): Date {
@@ -22,11 +28,18 @@ export class TodoDate {
     return kst;
   }
 
-  private getUTC(date: Date): number {
+  private getUTC(date: Date): NumberDate {
     return date.getTime() + date.getTimezoneOffset() * 60 * 1000;
   }
 
-  private changeString(today: string): IDate | null {
+  private getString(kst: Date): StringDate {
+    const today = kst.toLocaleString('ko-KR');
+    const { year, month, day } = this.convertToObj(today) as IDate;
+
+    return `${year}-${month}-${day}`;
+  }
+
+  private convertToObj(today: string): IDate | null {
     const result = today.match(this.regex);
     if (!result) return null;
 
