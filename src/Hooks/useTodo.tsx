@@ -24,7 +24,7 @@ export const useTodo = () => {
     setNextIdState(MaxId + 1);
   }
 
-  const increamentNextID = () => {
+  const incrementNextId = () => {
     setNextIdState((prevId) => prevId + 1);
   }
 
@@ -61,9 +61,8 @@ export const useTodo = () => {
   return {
     todoState,
     nextIdState,
-    increamentNextID,
+    incrementNextId,
     removeTodo,
     createTodo
   }
 }
-
