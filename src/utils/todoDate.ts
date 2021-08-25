@@ -13,8 +13,8 @@ export class TodoDate {
   }
   // 임시 추가.
   converToString(date: Date): StringDate {
-    const krString = this.getKST(date).toLocaleString('ko-KR');
-    const formatted = this.format(krString);
+    const kstDate = this.getKST(date);
+    const formatted = this.format(kstDate);
 
     return formatted;
   }
