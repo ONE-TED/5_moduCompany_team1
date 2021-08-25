@@ -11,18 +11,20 @@ export class TodoDate {
   private krTimeDiffZone = 9 * 60 * 60 * 1000;
   private regex = /(\d{4}). (\d{1,2}). (\d{1,2})/;
 
-  getNumber(): NumberDate {
-    return this.getKST().getTime();
+  getToday(): StringDate {
+    const krString = this.getKST(new Date()).toLocaleString('ko-KR');
+    const formatted = this.format(krString);
+
+    return formatted;
   }
 
-  convertToString(number: NumberDate): StringDate {
-    const kst = new Date(number);
-
-    return this.getString(kst);
+  convertToNumber(krString: StringDate): NumberDate {
+    const krDate = new Date(krString);
+    return this.getKST(krDate).getTime();
   }
 
-  private getKST(): Date {
-    const utc = this.getUTC(new Date());
+  private getKST(date: Date): Date {
+    const utc = this.getUTC(date);
     const kst = new Date(utc + this.krTimeDiffZone);
 
     return kst;
@@ -32,15 +34,13 @@ export class TodoDate {
     return date.getTime() + date.getTimezoneOffset() * 60 * 1000;
   }
 
-  private getString(kst: Date): StringDate {
-    const today = kst.toLocaleString('ko-KR');
-    const { year, month, day } = this.convertToObj(today) as IDate;
-
+  private format(stringDate: string): StringDate {
+    const { year, month, day } = this.convertToObj(stringDate) as IDate;
     return `${year}-${month}-${day}`;
   }
 
-  private convertToObj(today: string): IDate | null {
-    const result = today.match(this.regex);
+  private convertToObj(date: string): IDate | null {
+    const result = date.match(this.regex);
     if (!result) return null;
 
     const year = result[1];

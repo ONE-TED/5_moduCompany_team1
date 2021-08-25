@@ -7,8 +7,7 @@ import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
 const Header: React.FC = () => {
   const getTodayDate = () => {
     const today = new TodoDate();
-    const dateNum = today.getNumber();
-    return today.convertToString(dateNum);
+    return today.getToday();
   };
 
   const handleOnClick = () => {
