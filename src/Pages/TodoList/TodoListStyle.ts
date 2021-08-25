@@ -16,6 +16,7 @@ const Li = styled.li`
 const TodoItemsLayout = styled.div`
   overflow-y: scroll;
   margin: 2rem;
+  width: 70%;
 `;
 
 export const style = {

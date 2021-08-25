@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Itodo } from 'types';
+import data from 'data.json';
 
 export const useTodo = () => {
-  let initialTodos: Itodo[] = [];
+  let initialTodos: Itodo[] = data as Itodo[];
 
   const [todoState, setTodoState] = useState(initialTodos);
   const [nextIdState, setNextIdState] = useState(0);
