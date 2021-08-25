@@ -16,6 +16,7 @@ const datepicker = ({ Duedate, handleChange }: IDate) => {
         selected={Duedate}
         onChange={handleChange}
         placeholderText="마감일을 선택하세요"
+        minDate={new Date()}
       />
     </>
   );
