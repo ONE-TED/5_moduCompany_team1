@@ -20,7 +20,6 @@ const TodoCreate = ({
   const today = date.getToday();
   const [dueDate, setDuedate] = useState<Date>(new Date());
   const [status, setStatus] = useState<Status>(Status.NOT_STARTED);
-  const [statusValue, SetStatusValue] = useState<string>('NOT_STARTED');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
@@ -45,7 +44,6 @@ const TodoCreate = ({
     incrementNextId();
     setValue('');
     setStatus(Status.NOT_STARTED);
-    SetStatusValue('NOT_STARTED');
     setDuedate(new Date());
   };
 
@@ -56,17 +54,14 @@ const TodoCreate = ({
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value: string = e.target.value;
     let ClickStatus: Status = Status.NOT_STARTED;
-    if (value === 'FINISHED') {
+
+    if (value === '완료') {
       ClickStatus = Status.FINISHED;
-      SetStatusValue('FINISHED');
-    } else if (value === 'ONGOING') {
+    } else if (value === '진행중') {
       ClickStatus = Status.ONGOING;
-      SetStatusValue('ONGOING');
     } else {
       ClickStatus = Status.NOT_STARTED;
-      SetStatusValue('NOT_STARTED');
     }
-
     setStatus(ClickStatus);
   };
 
@@ -81,7 +76,7 @@ const TodoCreate = ({
             onChange={handleChange}
           />
           <Mydatepicker Duedate={dueDate} handleChange={handleDuedate} />
-          <MySelectBox value={statusValue} handleChange={handleSelect} />
+          <MySelectBox value={status} handleChange={handleSelect} />
           <button
             style={{ background: 'black', color: 'white', cursor: 'pointer' }}
           >
