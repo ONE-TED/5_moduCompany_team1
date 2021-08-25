@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Itodo, Status } from 'types';
 import { style } from './TodoCreateStyle';
 import { TodoDate } from 'utils/todoDate';
-import { Mydatepicker } from 'Components';
+import { Mydatepicker, MySelectBox } from 'Components';
 
 interface TodoCreateProps {
   nextId: number;
@@ -18,10 +18,9 @@ const TodoCreate = ({
   const [value, setValue] = useState('');
   const getDate = new TodoDate();
   const today = getDate.getToday();
-  const { FINISHED, ONGOING, NOT_STARTED } = Status;
-  const [status, setStatus] = useState(NOT_STARTED);
   const [dueDate, setDuedate] = useState<null | Date>(new Date());
-
+  const [status, setStatus] = useState<Status>(Status.NOT_STARTED);
+  const [statusValue, SetStatusValue] = useState<string>('NOT_STARTED');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
 
@@ -36,16 +35,36 @@ const TodoCreate = ({
     createTodo({
       id: nextId,
       taskName: value,
-      status: Status.NOT_STARTED,
+      status: status,
       createdAt: today,
       updatedAt: '',
     });
     incrementNextId();
     setValue('');
+    setStatus(Status.NOT_STARTED);
+    SetStatusValue('NOT_STARTED');
+    setDuedate(new Date());
   };
 
   const handleDuedate = (e: Date) => {
     setDuedate(e);
+  };
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: string = e.target.value;
+    let ClickStatus: Status = Status.NOT_STARTED;
+    if (value === 'FINISHED') {
+      ClickStatus = Status.FINISHED;
+      SetStatusValue('FINISHED');
+    } else if (value === 'ONGOING') {
+      ClickStatus = Status.ONGOING;
+      SetStatusValue('ONGOING');
+    } else {
+      ClickStatus = Status.NOT_STARTED;
+      SetStatusValue('NOT_STARTED');
+    }
+
+    setStatus(ClickStatus);
   };
 
   return (
@@ -59,6 +78,7 @@ const TodoCreate = ({
             onChange={handleChange}
           />
           <Mydatepicker Duedate={dueDate} handleChange={handleDuedate} />
+          <MySelectBox value={statusValue} handleChange={handleSelect} />
           <button
             style={{ background: 'black', color: 'white', cursor: 'pointer' }}
           >
