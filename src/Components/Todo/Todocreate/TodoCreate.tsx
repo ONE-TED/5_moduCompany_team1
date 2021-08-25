@@ -15,8 +15,10 @@ const TodoCreate = ({
   incrementNextId,
 }: TodoCreateProps) => {
   const [value, setValue] = useState('');
-  const Today = new TodoDate();
-  const [date, setDate] = useState(Today.getDate());
+  const TodayClass = new TodoDate();
+  const TodayNumber = TodayClass.getNumber();
+  const Today = TodayClass.convertToString(TodayNumber);
+  const [date, setDate] = useState(Today);
   const { FINISHED, ONGOING, NOT_STARTED } = Status;
   const [status, setStatus] = useState(NOT_STARTED);
 
