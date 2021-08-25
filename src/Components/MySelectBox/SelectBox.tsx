@@ -7,7 +7,6 @@ interface ISelectBox {
 }
 
 const SelectBox = ({ value, handleChange }: ISelectBox) => {
-  console.log(value);
   return (
     <MySelect value={value} onChange={handleChange}>
       <option value="NOT_STARTED">예정</option>
