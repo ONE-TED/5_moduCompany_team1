@@ -17,7 +17,13 @@ export class TodoDate {
 
     return formatted;
   }
+  // 임시 추가.
+  converToString(date: Date): StringDate {
+    const krString = this.getKST(date).toLocaleString('ko-KR');
+    const formatted = this.format(krString);
 
+    return formatted;
+  }
   convertToNumber(krString: StringDate): NumberDate {
     const krDate = new Date(krString);
     return this.getKST(krDate).getTime();
