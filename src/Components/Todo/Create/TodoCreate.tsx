@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Itodo, Status } from 'types';
 import { style } from './TodoCreateStyle';
 import { TodoDate } from 'utils/todoDate';
+import { Mydatepicker } from 'Components';
 
 interface TodoCreateProps {
   nextId: number;
@@ -15,11 +16,11 @@ const TodoCreate = ({
   incrementNextId,
 }: TodoCreateProps) => {
   const [value, setValue] = useState('');
-  const TodayClass = new TodoDate();
-  const Today = TodayClass.getToday();
-  const [date, setDate] = useState(Today);
+  const getDate = new TodoDate();
+  const today = getDate.getToday();
   const { FINISHED, ONGOING, NOT_STARTED } = Status;
   const [status, setStatus] = useState(NOT_STARTED);
+  const [dueDate, setDuedate] = useState<null | Date>(new Date());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
@@ -36,11 +37,15 @@ const TodoCreate = ({
       id: nextId,
       taskName: value,
       status: Status.NOT_STARTED,
-      createdAt: date,
+      createdAt: today,
       updatedAt: '',
     });
     incrementNextId();
     setValue('');
+  };
+
+  const handleDuedate = (e: Date) => {
+    setDuedate(e);
   };
 
   return (
@@ -53,6 +58,7 @@ const TodoCreate = ({
             value={value}
             onChange={handleChange}
           />
+          <Mydatepicker Duedate={dueDate} handleChange={handleDuedate} />
           <button
             style={{ background: 'black', color: 'white', cursor: 'pointer' }}
           >
