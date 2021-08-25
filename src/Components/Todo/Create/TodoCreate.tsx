@@ -16,11 +16,12 @@ const TodoCreate = ({
   incrementNextId,
 }: TodoCreateProps) => {
   const [value, setValue] = useState('');
-  const getDate = new TodoDate();
-  const today = getDate.getToday();
-  const [dueDate, setDuedate] = useState<null | Date>(new Date());
+  const date = new TodoDate();
+  const today = date.getToday();
+  const [dueDate, setDuedate] = useState<Date>(new Date());
   const [status, setStatus] = useState<Status>(Status.NOT_STARTED);
   const [statusValue, SetStatusValue] = useState<string>('NOT_STARTED');
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
 
@@ -37,7 +38,9 @@ const TodoCreate = ({
       taskName: value,
       status: status,
       createdAt: today,
-      updatedAt: '',
+      // 일단 Duedate(마감일) 값은 updateAt에 넣어놨습니다.
+      // 추후 dueDate가 Itodo에 추가되면 변경하겠습니다.
+      updatedAt: date.converToString(dueDate),
     });
     incrementNextId();
     setValue('');
