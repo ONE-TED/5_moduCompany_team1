@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { TodoDate } from 'utils/todoDate';
 import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
 
 const Header: React.FC = () => {
+  const getTodayDate = () => {
+    const today = new TodoDate();
+    const dateNum = today.getNumber();
+    return today.convertToString(dateNum);
+  };
+
   const handleOnClick = () => {
     //sidedrawer 토글 로직
   };
@@ -11,7 +18,7 @@ const Header: React.FC = () => {
   return (
     <>
       <HeaderLayout>
-        <HeaderTitleLayout>TO DO LIST</HeaderTitleLayout>
+        <HeaderTitleLayout>{`Today is : ${getTodayDate()}`}</HeaderTitleLayout>
         <FilterIconLayout>
           <FilterIcon onClick={handleOnClick} />
         </FilterIconLayout>
@@ -38,7 +45,7 @@ const HeaderTitleLayout = styled.div`
 
   text-align: center;
   color: #555555;
-  font-size: 2.5rem;
+  font-size: 2rem;
 `;
 
 const FilterIconLayout = styled.div`
