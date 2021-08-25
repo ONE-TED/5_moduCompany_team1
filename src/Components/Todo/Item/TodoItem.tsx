@@ -20,7 +20,9 @@ const TodoItem = ({ removeTodo, todo }: TodoItemProps) => {
       <ElementBlock>
         <button style={{ cursor: 'pointer', marginRight: '10px' }}>수정</button>
         <div style={{ cursor: 'pointer', marginRight: '10px' }}>selectBox</div>
-        <button style={{ cursor: 'pointer' }}>휴지통</button>
+        <button style={{ cursor: 'pointer' }} onClick={handleRemove}>
+          휴지통
+        </button>
       </ElementBlock>
     </TodoItemBlock>
   );
