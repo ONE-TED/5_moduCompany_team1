@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from 'Components/Header';
 import data from 'data.json';
-import TodoCreate from 'Components/Todo/Create';
+import { Todocreate, TodoItem } from 'Components/Todo';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
 import { Itodo } from 'types';
@@ -10,31 +10,21 @@ const TodoList: React.FC = () => {
   const { todoState, nextIdState, incrementNextId, removeTodo, createTodo } =
     useTodo();
 
-  //const todoData = data as Itodo[];
   const [list, setList] = useState<Itodo[] | null>(null);
 
   return (
     <>
       <TodoListTemplate>
         <Header />
-        <TodoCreate
+        <Todocreate
           nextId={nextIdState}
           createTodo={createTodo}
           incrementNextId={incrementNextId}
         />
         <TodoItemsLayout>
-          <ul style={{ padding: '20px' }}>
-            {todoState.map((item: Itodo) => (
-              <Li key={item.id}>
-                <span style={{ fontSize: '20px' }}>{item.taskName}</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <button>icon</button>
-                  <div>selectBox</div>
-                  <button>휴지통</button>
-                </div>
-              </Li>
-            ))}
-          </ul>
+          {todoState.map((item: Itodo) => (
+            <TodoItem key={item.id} removeTodo={removeTodo} todo={item} />
+          ))}
         </TodoItemsLayout>
       </TodoListTemplate>
     </>
@@ -42,4 +32,4 @@ const TodoList: React.FC = () => {
 };
 export default TodoList;
 
-const { TodoListTemplate, Li, TodoItemsLayout } = style;
+const { TodoListTemplate, TodoItemsLayout } = style;
