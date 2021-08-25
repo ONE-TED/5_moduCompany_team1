@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Header from 'Components/Header';
-import data from 'data.json';
 import { Todocreate, TodoItem } from 'Components/Todo';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
