@@ -1,12 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
+
 const Header: React.FC = () => {
+  const handleOnClick = () => {
+    //sidedrawer 토글 로직
+  };
+
   return (
     <>
       <HeaderLayout>
         <HeaderTitleLayout>TO DO LIST</HeaderTitleLayout>
-        <FilterIconLayout>filter icon</FilterIconLayout>
+        <FilterIconLayout>
+          <FilterIcon onClick={handleOnClick} />
+        </FilterIconLayout>
       </HeaderLayout>
     </>
   );
@@ -34,10 +42,16 @@ const HeaderTitleLayout = styled.div`
 `;
 
 const FilterIconLayout = styled.div`
+  display: flex;
+  justify-content: center;
   width: 5%;
-  border: 1px solid black;
+`;
 
-  text-align: center;
+const FilterIcon = styled(filterIcon)`
+  width: 2rem;
+  height: auto;
+
+  cursor: pointer;
 `;
 
 export default Header;
