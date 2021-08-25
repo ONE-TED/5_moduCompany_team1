@@ -6,8 +6,14 @@ import { style } from './TodoListStyle';
 import { Itodo } from 'types';
 
 const TodoList: React.FC = () => {
-  const { todoState, nextIdState, incrementNextId, removeTodo, createTodo } =
-    useTodo();
+  const {
+    todoState,
+    nextIdState,
+    incrementNextId,
+    removeTodo,
+    createTodo,
+    selectStatusTodo,
+  } = useTodo();
 
   const [list, setList] = useState<Itodo[] | null>(null);
 
@@ -22,7 +28,12 @@ const TodoList: React.FC = () => {
         />
         <TodoItemsLayout>
           {todoState.map((item: Itodo) => (
-            <TodoItem key={item.id} removeTodo={removeTodo} todo={item} />
+            <TodoItem
+              key={item.id}
+              removeTodo={removeTodo}
+              todo={item}
+              selectStatusTodo={selectStatusTodo}
+            />
           ))}
         </TodoItemsLayout>
       </TodoListTemplate>

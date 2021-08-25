@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Itodo } from 'types';
+import { Itodo, Status } from 'types';
 import data from 'data.json';
 
 export const useTodo = () => {
@@ -44,6 +44,17 @@ export const useTodo = () => {
     );
   };
 
+  const selectStatusTodo = (id: number, ClickStatus: Status) => {
+    const todoSelect = todoState.filter((todo: Itodo) => todo.id === id);
+    todoSelect[0].status = ClickStatus;
+
+    const noSelectList = todoState.filter((todo: Itodo) => todo.id !== id);
+    const todoList = noSelectList.concat(todoSelect);
+
+    todoList.sort((o1, o2) => o1.id - o2.id);
+    setTodoState(todoList);
+  };
+
   const loadData = () => {
     let data = localStorage.getItem('todos');
 
@@ -69,5 +80,6 @@ export const useTodo = () => {
     incrementNextId,
     removeTodo,
     createTodo,
+    selectStatusTodo,
   };
 };
