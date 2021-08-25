@@ -1,19 +1,13 @@
 type StringDate = string;
 type NumberDate = number;
 
-interface IDate {
-  year: string;
-  month: string;
-  day: string;
-}
-
 export class TodoDate {
   private krTimeDiffZone = 9 * 60 * 60 * 1000;
   private regex = /(\d{4}). (\d{1,2}). (\d{1,2})/;
 
   getToday(): StringDate {
-    const krString = this.getKST(new Date()).toLocaleString('ko-KR');
-    const formatted = this.format(krString);
+    const kstDate = this.getKST(new Date());
+    const formatted = this.format(kstDate);
 
     return formatted;
   }
@@ -34,22 +28,28 @@ export class TodoDate {
     return date.getTime() + date.getTimezoneOffset() * 60 * 1000;
   }
 
-  private format(stringDate: string): StringDate {
-    const { year, month, day } = this.convertToObj(stringDate) as IDate;
-    return `${year}-${month}-${day}`;
+  private format(kstDate: Date): StringDate {
+    const [year, month, day, hours, minutes, seconds] = this.convertToObj(
+      kstDate,
+    ) as string[];
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 
-  private convertToObj(date: string): IDate | null {
-    const result = date.match(this.regex);
+  private convertToObj(kstDate: Date): string[] | null {
+    const result = kstDate.toLocaleString('ko-KR').match(this.regex);
     if (!result) return null;
 
     const year = result[1];
-    let month = result[2];
-    let day = result[3];
+    const month = result[2];
+    const day = result[3];
+    const hours = `${kstDate.getHours()}`;
+    const minutes = `${kstDate.getMinutes()}`;
+    const seconds = `${kstDate.getSeconds()}`;
 
-    month.length === 1 ? (month = `0${month}`) : null;
-    day.length === 1 ? (day = `0${day}`) : null;
+    const dateInfo = [year, month, day, hours, minutes, seconds];
+    const converted = dateInfo.map((i) => (i.length === 1 ? `0${i}` : `${i}`));
 
-    return { year, month, day };
+    return converted;
   }
 }
