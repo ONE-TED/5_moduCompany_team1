@@ -62,6 +62,7 @@ export const useTodo = () => {
       data = '';
     } else {
       initialTodos = JSON.parse(data);
+      // initialTodos = initialTodos;
     }
 
     if (initialTodos && initialTodos.length >= 1) {
@@ -76,6 +77,7 @@ export const useTodo = () => {
 
   return {
     todoState,
+    setTodoState,
     nextIdState,
     incrementNextId,
     removeTodo,

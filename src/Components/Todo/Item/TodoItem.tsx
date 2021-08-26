@@ -7,9 +7,19 @@ interface TodoItemProps {
   removeTodo: (id: number) => void;
   todo: Itodo;
   selectStatusTodo: (id: number, ClickStatus: Status) => void;
+  onDragStart: React.DragEventHandler<HTMLDivElement>;
+  onDragOver: React.DragEventHandler<HTMLDivElement>;
+  onDragEnd: React.DragEventHandler<HTMLDivElement>;
 }
 
-const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
+const TodoItem = ({
+  removeTodo,
+  todo,
+  selectStatusTodo,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
+}: TodoItemProps) => {
   const [dDay, setDday] = useState<number>(0);
   const [status, setStatus] = useState<Status>(todo.status);
   const [done, setDone] = useState<boolean>(false);
@@ -54,7 +64,12 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
   };
 
   return (
-    <TodoItemBlock>
+    <TodoItemBlock
+      draggable={true}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
+    >
       <Text done={done}>{todo.taskName}</Text>
       <Text done={done}>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
       <ElementBlock>
