@@ -34,7 +34,9 @@ const TodoItem = ({
       calculateDday(todo.dueDate);
     }
     todo.status === '완료' ? setDone(true) : setDone(false);
-  }, [isEdited]);
+    setEditedTask(todo.taskName);
+    setStatus(todo.status);
+  }, [isEdited, todo]);
 
   const handleRemove = () => {
     removeTodo(todo.id);
@@ -89,11 +91,11 @@ const TodoItem = ({
 
   return (
     <TodoItemBlock
-            draggable={true}
+      draggable={true}
       onDragStart={onDragStart}
       onDragOver={onDragOver}
       onDragEnd={onDragEnd}
-      >
+    >
       {isEdited ? (
         <InsertForm onSubmit={handleEditSubmit}>
           <Input autoFocus value={editedTask} onChange={handleEditChange} />
