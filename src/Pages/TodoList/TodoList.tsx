@@ -19,13 +19,11 @@ const TodoList: React.FC = () => {
   const [list, setList] = useState<Itodo[] | null>(null);
   const dragStartIndex = useRef<number>(0);
   const dragOverIndex = useRef<number>(0);
-
   const handleOnDragStart = (
     e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
     index: number,
   ): void => {
-    e.target.classList.add('.dragging'); //드래그 되는 요소 색상 바꿔주기 위한 용도
-    //드래깅 되고 있는 엘리먼트 인덱스 저장
+    e.target.classList.add('dragging'); //드래그 되는 요소 색상 바꿔주기 위한 용도
     dragStartIndex.current = index;
   };
 
@@ -33,26 +31,28 @@ const TodoList: React.FC = () => {
     e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
     index: number,
   ): void => {
-    //드래그 오버된 엘리먼트 인덱스 저장
     dragOverIndex.current = index;
   };
 
   const handleOnDragEnd = (
     e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
   ): void => {
-    e.target.classList.remove('.dragging'); //드래그 된 요소 색상 다시 원래대로.
-    const tempList = [...todoState];
-    const dummyItem = {
-      id: 0,
-      taskName: '',
-      status: Status.FINISHED,
-      createdAt: '',
-      updatedAt: '',
-    };
-    const draggedItem = tempList.splice(dragStartIndex.current, 1, dummyItem);
-    tempList.splice(dragOverIndex.current, 0, draggedItem[0]);
-    tempList.splice(dragStartIndex.current, 1);
-    setTodoState(tempList);
+    e.target.classList.remove('dragging'); //드래그 된 요소 색상 다시 원래대로.
+    const draggedEl = todoState.slice(
+      dragStartIndex.current,
+      dragStartIndex.current + 1,
+    );
+    const frontTodos = todoState.slice(0, dragOverIndex.current);
+    const rearTodos = todoState.slice(dragOverIndex.current, todoState.length);
+
+    if (dragOverIndex.current > dragStartIndex.current) {
+      frontTodos.splice(dragStartIndex.current, 1);
+    } else {
+      rearTodos.splice(dragStartIndex.current - dragOverIndex.current, 1);
+    }
+
+    const temp = [...frontTodos, ...draggedEl, ...rearTodos];
+    setTodoState(temp);
   };
 
   return (
@@ -67,7 +67,7 @@ const TodoList: React.FC = () => {
         <TodoItemsLayout>
           {todoState.map((item: Itodo, index: number) => (
             <TodoItem
-              key={item.id}
+              key={`item-${item.id}`}
               removeTodo={removeTodo}
               todo={item}
               selectStatusTodo={selectStatusTodo}
