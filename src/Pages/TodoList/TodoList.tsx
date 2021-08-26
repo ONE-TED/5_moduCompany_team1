@@ -23,9 +23,7 @@ const TodoList: React.FC = () => {
     e: React.DragEvent<HTMLDivElement>,
     index: number,
   ): void => {
-    // const target = e.target as HTMLDivElement;
-
-    (e.target as HTMLDivElement).classList.add('dragging'); //드래그 되는 요소 색상 바꿔주기 위한 용도
+    (e.target as HTMLDivElement).classList.add('dragging');
     dragStartIndex.current = index;
   };
 
@@ -37,7 +35,7 @@ const TodoList: React.FC = () => {
   };
 
   const handleOnDragEnd = (e: React.DragEvent<HTMLDivElement>): void => {
-    (e.target as HTMLElement).classList.remove('dragging'); //드래그 된 요소 색상 다시 원래대로.
+    (e.target as HTMLElement).classList.remove('dragging');
     const draggedEl = todoState.slice(
       dragStartIndex.current,
       dragStartIndex.current + 1,
@@ -74,10 +72,11 @@ const TodoList: React.FC = () => {
               onDragStart={(e) => {
                 handleOnDragStart(e, index);
               }}
-              onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
+              onDragOver={(e) => {
+                e.preventDefault();
                 handleOnDragOver(e, index);
               }}
-              onDragEnd={(e: React.DragEvent<HTMLDivElement>) => {
+              onDragEnd={(e) => {
                 handleOnDragEnd(e);
               }}
             />
