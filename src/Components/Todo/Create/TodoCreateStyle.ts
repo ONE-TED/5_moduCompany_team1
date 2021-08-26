@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const InsertFormPositioner = styled.div`
-  width: 50%;
+  width: 60%;
   border-bottom: 1px solid black;
 `;
 

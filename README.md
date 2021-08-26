@@ -1,9 +1,10 @@
 <p align='middle'>
-  <a href='https://github.com/ONE-TED/init_convention'>
-    <img src='https://www.solarconnect.kr/assets/img/common/sc-logo.svg' width="300px;" alt="로고 이미지 예시" />
+  <a href='https://www.moduparking.com/'>
+    <img src='https://user-images.githubusercontent.com/51367622/130882614-fdfde471-f2c6-4be5-b4e2-afd6181e310c.png' width="300px;" alt="모두 컴퍼니" />
   </a></p>
 <p align='middle'><img alt="GitHub top language" src="https://img.shields.io/github/languages/top/ONE-TED/init_convention?color=blueviolet"> <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/ONE-TED/init_convention"> 
 <h1 align='middle'><a href='https://github.com/ONE-TED/init_convention'>배포 링크 입력</a></h1>
+
 
 
 
@@ -17,9 +18,9 @@
 
 ## 📌 프로젝트 소개
 
-###  프리온보딩 코스 ~~~~ 기업 과제
+###  프리온보딩 코스 모두의 주차장 기업 과제
 
-> ❕ **BlaBla구현하기**❗
+> ❕ **Drag & Drop & filter 기능이 있는 TodoList 타입 스크립트로 구현하기**❗
 
 <br/>
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Itodo, Status } from 'types';
 import { style } from './TodoCreateStyle';
 import { TodoDate } from 'utils/todoDate';
+import { Mydatepicker, MySelectBox } from 'Components';
 
 interface TodoCreateProps {
   nextId: number;
@@ -15,11 +16,10 @@ const TodoCreate = ({
   incrementNextId,
 }: TodoCreateProps) => {
   const [value, setValue] = useState('');
-  const TodayClass = new TodoDate();
-  const Today = TodayClass.getToday();
-  const [date, setDate] = useState(Today);
-  const { FINISHED, ONGOING, NOT_STARTED } = Status;
-  const [status, setStatus] = useState(NOT_STARTED);
+  const date = new TodoDate();
+  const today = date.getToday();
+  const [dueDate, setDuedate] = useState<Date>(new Date());
+  const [status, setStatus] = useState<Status>(Status.NOT_STARTED);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
@@ -35,12 +35,34 @@ const TodoCreate = ({
     createTodo({
       id: nextId,
       taskName: value,
-      status: Status.NOT_STARTED,
-      createdAt: date,
-      updatedAt: '',
+      status: status,
+      createdAt: today,
+      // 일단 Duedate(마감일) 값은 updateAt에 넣어놨습니다.
+      // 추후 dueDate가 Itodo에 추가되면 변경하겠습니다.
+      updatedAt: date.converToString(dueDate),
     });
     incrementNextId();
     setValue('');
+    setStatus(Status.NOT_STARTED);
+    setDuedate(new Date());
+  };
+
+  const handleDuedate = (e: Date) => {
+    setDuedate(e);
+  };
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value: string = e.target.value;
+    let ClickStatus: Status = Status.NOT_STARTED;
+
+    if (value === '완료') {
+      ClickStatus = Status.FINISHED;
+    } else if (value === '진행중') {
+      ClickStatus = Status.ONGOING;
+    } else {
+      ClickStatus = Status.NOT_STARTED;
+    }
+    setStatus(ClickStatus);
   };
 
   return (
@@ -53,6 +75,8 @@ const TodoCreate = ({
             value={value}
             onChange={handleChange}
           />
+          <Mydatepicker Duedate={dueDate} handleChange={handleDuedate} />
+          <MySelectBox value={status} handleChange={handleSelect} />
           <button
             style={{ background: 'black', color: 'white', cursor: 'pointer' }}
           >
