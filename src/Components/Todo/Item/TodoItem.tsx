@@ -8,6 +8,9 @@ interface TodoItemProps {
   todo: Itodo;
   selectStatusTodo: (id: number, ClickStatus: Status) => void;
   modifyTodo: (id: number, editedTask: string, editDueDate: Date) => void;
+  onDragStart: React.DragEventHandler<HTMLDivElement>;
+  onDragOver: React.DragEventHandler<HTMLDivElement>;
+  onDragEnd: React.DragEventHandler<HTMLDivElement>;
 }
 
 const TodoItem = ({
@@ -15,6 +18,9 @@ const TodoItem = ({
   todo,
   selectStatusTodo,
   modifyTodo,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
 }: TodoItemProps) => {
   const [dDay, setDday] = useState<number>(0);
   const [status, setStatus] = useState<Status>(todo.status);
@@ -82,7 +88,12 @@ const TodoItem = ({
   };
 
   return (
-    <TodoItemBlock>
+    <TodoItemBlock
+            draggable={true}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
+      >
       {isEdited ? (
         <InsertForm onSubmit={handleEditSubmit}>
           <Input autoFocus value={editedTask} onChange={handleEditChange} />

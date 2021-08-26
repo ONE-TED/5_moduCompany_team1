@@ -1,6 +1,13 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 
-const TodoItemBlock = styled.div`
+interface ItodoItem {
+  onDragStart: React.DragEventHandler<HTMLDivElement>;
+  onDragOver: React.DragEventHandler<HTMLDivElement>;
+  onDragEnd: React.DragEventHandler<HTMLDivElement>;
+}
+
+const TodoItemBlock = styled.div<ItodoItem>`
   padding: 10px 0;
   display: flex;
   justify-content: space-around;
