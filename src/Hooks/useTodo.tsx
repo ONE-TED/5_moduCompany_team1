@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Itodo, Status } from 'types';
 import data from 'data.json';
+import { TodoDate } from 'utils/todoDate';
 
 export const useTodo = () => {
   let initialTodos: Itodo[] = data as Itodo[];
 
   const [todoState, setTodoState] = useState(initialTodos);
   const [nextIdState, setNextIdState] = useState(0);
+  const date = new TodoDate();
 
   useEffect(() => {
     loadData();
@@ -47,6 +49,7 @@ export const useTodo = () => {
   const selectStatusTodo = (id: number, ClickStatus: Status) => {
     const todoSelect = todoState.filter((todo: Itodo) => todo.id === id);
     todoSelect[0].status = ClickStatus;
+    todoSelect[0].updatedAt = date.converToString(new Date());
 
     const noSelectList = todoState.filter((todo: Itodo) => todo.id !== id);
     const todoList = noSelectList.concat(todoSelect);
