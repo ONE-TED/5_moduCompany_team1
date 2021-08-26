@@ -15,6 +15,7 @@ const TodoList: React.FC = () => {
     removeTodo,
     createTodo,
     selectStatusTodo,
+    modifyTodo,
   } = useTodo();
 
   const { handleOnDragStart, handleOnDragOver, handleOnDragEnd } =
@@ -38,6 +39,7 @@ const TodoList: React.FC = () => {
               removeTodo={removeTodo}
               todo={item}
               selectStatusTodo={selectStatusTodo}
+              modifyTodo={modifyTodo}
               onDragStart={(e) => {
                 handleOnDragStart(e, index);
               }}

@@ -11,7 +11,7 @@ export class TodoDate {
 
     return formatted;
   }
-  // 임시 추가.
+
   converToString(date: Date): StringDate {
     const kstDate = this.getKST(date);
     const formatted = this.format(kstDate);

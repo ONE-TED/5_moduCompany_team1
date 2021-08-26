@@ -37,9 +37,8 @@ const TodoCreate = ({
       taskName: value,
       status: status,
       createdAt: today,
-      // 일단 Duedate(마감일) 값은 updateAt에 넣어놨습니다.
-      // 추후 dueDate가 Itodo에 추가되면 변경하겠습니다.
-      updatedAt: date.converToString(dueDate),
+      updatedAt: today,
+      dueDate: date.converToString(dueDate),
     });
     incrementNextId();
     setValue('');
