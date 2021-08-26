@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Itodo, Status } from 'types';
 import { style } from './TodoItemStyle';
 import { MySelectBox, Mydatepicker } from 'Components';
+import { ReactComponent as Trashcan } from 'Assets/icons/trashcan.svg';
 
 interface TodoItemProps {
   removeTodo: (id: number) => void;
@@ -89,11 +90,11 @@ const TodoItem = ({
 
   return (
     <TodoItemBlock
-            draggable={true}
+      draggable={true}
       onDragStart={onDragStart}
       onDragOver={onDragOver}
       onDragEnd={onDragEnd}
-      >
+    >
       {isEdited ? (
         <InsertForm onSubmit={handleEditSubmit}>
           <Input autoFocus value={editedTask} onChange={handleEditChange} />
@@ -122,7 +123,7 @@ const TodoItem = ({
         </button>
         <MySelectBox value={status} handleChange={handleSelectStatus} />
         <button style={{ cursor: 'pointer' }} onClick={handleRemove}>
-          휴지통
+          <Trashcan />
         </button>
       </ElementBlock>
     </TodoItemBlock>
