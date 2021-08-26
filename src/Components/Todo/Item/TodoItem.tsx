@@ -1,23 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Itodo, Status } from 'types';
 import { style } from './TodoItemStyle';
-import { MySelectBox } from 'Components';
+import { MySelectBox, Mydatepicker } from 'Components';
 
 interface TodoItemProps {
   removeTodo: (id: number) => void;
   todo: Itodo;
   selectStatusTodo: (id: number, ClickStatus: Status) => void;
+  modifyTodo: (id: number, editedTask: string, editDueDate: Date) => void;
 }
 
-const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
+const TodoItem = ({
+  removeTodo,
+  todo,
+  selectStatusTodo,
+  modifyTodo,
+}: TodoItemProps) => {
   const [dDay, setDday] = useState<number>(0);
   const [status, setStatus] = useState<Status>(todo.status);
   const [done, setDone] = useState<boolean>(false);
+  const [isEdited, setIsEdited] = useState<boolean>(false);
+  const [editedTask, setEditedTask] = useState<string>(todo.taskName);
+  const [editDueDate, setEditDuedate] = useState<Date>(new Date());
 
   useEffect(() => {
-    calculateDday(todo.dueDate);
+    if (todo.dueDate) {
+      calculateDday(todo.dueDate);
+    }
     todo.status === '완료' ? setDone(true) : setDone(false);
-  }, []);
+  }, [isEdited]);
 
   const handleRemove = () => {
     removeTodo(todo.id);
@@ -53,12 +64,51 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
     selectStatusTodo(todo.id, ClickStatus);
   };
 
+  const handleModify = () => {
+    setIsEdited(!isEdited);
+  };
+
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setEditedTask(e.target.value);
+
+  const handleEditDuedate = (e: Date) => {
+    setEditDuedate(e);
+  };
+
+  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    modifyTodo(todo.id, editedTask, editDueDate);
+    setIsEdited(false);
+  };
+
   return (
     <TodoItemBlock>
-      <Text done={done}>{todo.taskName}</Text>
-      <Text done={done}>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
+      {isEdited ? (
+        <InsertForm onSubmit={handleEditSubmit}>
+          <Input autoFocus value={editedTask} onChange={handleEditChange} />
+          <Mydatepicker
+            Duedate={editDueDate}
+            handleChange={handleEditDuedate}
+          />
+          <button
+            style={{ background: 'black', color: 'white', cursor: 'pointer' }}
+          >
+            등록하기
+          </button>
+        </InsertForm>
+      ) : (
+        <>
+          <Text done={done}>{todo.taskName}</Text>
+          <Text done={done}>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
+        </>
+      )}
       <ElementBlock>
-        <button style={{ cursor: 'pointer', marginRight: '10px' }}>수정</button>
+        <button
+          style={{ cursor: 'pointer', marginRight: '10px' }}
+          onClick={handleModify}
+        >
+          {isEdited ? `취소` : `수정`}
+        </button>
         <MySelectBox value={status} handleChange={handleSelectStatus} />
         <button style={{ cursor: 'pointer' }} onClick={handleRemove}>
           휴지통
@@ -70,4 +120,4 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
 
 export default TodoItem;
 
-const { TodoItemBlock, Text, ElementBlock } = style;
+const { TodoItemBlock, Text, ElementBlock, Input, InsertForm } = style;

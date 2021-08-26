@@ -58,6 +58,18 @@ export const useTodo = () => {
     setTodoState(todoList);
   };
 
+  const modifyTodo = (id: number, editedTask: string, editDueDate: Date) => {
+       const todomodify = todoState.filter((todo: Itodo) => todo.id === id);
+       todomodify[0].taskName = editedTask;
+       todomodify[0].dueDate = date.converToString(editDueDate);
+
+       const noModifyList = todoState.filter((todo: Itodo) => todo.id !== id);
+       const todoList = noModifyList.concat(todomodify);
+
+       todoList.sort((o1, o2) => o1.id - o2.id);
+       setTodoState(todoList);
+  };
+
   const loadData = () => {
     let data = localStorage.getItem('todos');
 
@@ -84,5 +96,6 @@ export const useTodo = () => {
     removeTodo,
     createTodo,
     selectStatusTodo,
+    modifyTodo,
   };
 };

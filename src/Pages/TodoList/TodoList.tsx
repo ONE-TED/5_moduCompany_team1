@@ -13,6 +13,7 @@ const TodoList: React.FC = () => {
     removeTodo,
     createTodo,
     selectStatusTodo,
+    modifyTodo,
   } = useTodo();
 
   const [list, setList] = useState<Itodo[] | null>(null);
@@ -33,6 +34,7 @@ const TodoList: React.FC = () => {
               removeTodo={removeTodo}
               todo={item}
               selectStatusTodo={selectStatusTodo}
+              modifyTodo={modifyTodo}
             />
           ))}
         </TodoItemsLayout>
