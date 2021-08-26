@@ -20,24 +20,24 @@ const TodoList: React.FC = () => {
   const dragStartIndex = useRef<number>(0);
   const dragOverIndex = useRef<number>(0);
   const handleOnDragStart = (
-    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
+    e: React.DragEvent<HTMLDivElement>,
     index: number,
   ): void => {
-    e.target.classList.add('dragging'); //드래그 되는 요소 색상 바꿔주기 위한 용도
+    // const target = e.target as HTMLDivElement;
+
+    (e.target as HTMLDivElement).classList.add('dragging'); //드래그 되는 요소 색상 바꿔주기 위한 용도
     dragStartIndex.current = index;
   };
 
   const handleOnDragOver = (
-    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
+    e: React.DragEvent<HTMLDivElement>,
     index: number,
   ): void => {
     dragOverIndex.current = index;
   };
 
-  const handleOnDragEnd = (
-    e: React.DragEvent<HTMLDivElement> & { target: HTMLDivElement },
-  ): void => {
-    e.target.classList.remove('dragging'); //드래그 된 요소 색상 다시 원래대로.
+  const handleOnDragEnd = (e: React.DragEvent<HTMLDivElement>): void => {
+    (e.target as HTMLElement).classList.remove('dragging'); //드래그 된 요소 색상 다시 원래대로.
     const draggedEl = todoState.slice(
       dragStartIndex.current,
       dragStartIndex.current + 1,
@@ -71,13 +71,13 @@ const TodoList: React.FC = () => {
               removeTodo={removeTodo}
               todo={item}
               selectStatusTodo={selectStatusTodo}
-              onDragStart={(e: any) => {
+              onDragStart={(e) => {
                 handleOnDragStart(e, index);
               }}
-              onDragOver={(e: any) => {
+              onDragOver={(e: React.DragEvent<HTMLDivElement>) => {
                 handleOnDragOver(e, index);
               }}
-              onDragEnd={(e: any) => {
+              onDragEnd={(e: React.DragEvent<HTMLDivElement>) => {
                 handleOnDragEnd(e);
               }}
             />

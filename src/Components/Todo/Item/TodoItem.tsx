@@ -7,9 +7,9 @@ interface TodoItemProps {
   removeTodo: (id: number) => void;
   todo: Itodo;
   selectStatusTodo: (id: number, ClickStatus: Status) => void;
-  onDragStart: any;
-  onDragOver: any;
-  onDragEnd: any;
+  onDragStart: React.DragEventHandler<HTMLDivElement>;
+  onDragOver: React.DragEventHandler<HTMLDivElement>;
+  onDragEnd: React.DragEventHandler<HTMLDivElement>;
 }
 
 const TodoItem = ({
