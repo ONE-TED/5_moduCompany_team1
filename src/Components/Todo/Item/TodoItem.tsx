@@ -15,7 +15,7 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
   const [done, setDone] = useState<boolean>(false);
 
   useEffect(() => {
-    calculateDday(todo.updatedAt);
+    calculateDday(todo.dueDate);
     todo.status === '완료' ? setDone(true) : setDone(false);
   }, []);
 
