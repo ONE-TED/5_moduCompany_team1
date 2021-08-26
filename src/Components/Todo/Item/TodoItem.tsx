@@ -12,9 +12,11 @@ interface TodoItemProps {
 const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
   const [dDay, setDday] = useState<number>(0);
   const [status, setStatus] = useState<Status>(todo.status);
-  console.log(status);
+  const [done, setDone] = useState<boolean>(false);
+
   useEffect(() => {
     calculateDday(todo.updatedAt);
+    todo.status === '완료' ? setDone(true) : setDone(false);
   }, []);
 
   const handleRemove = () => {
@@ -39,10 +41,13 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
     let ClickStatus: Status = Status.NOT_STARTED;
     if (value === '완료') {
       ClickStatus = Status.FINISHED;
+      setDone(true);
     } else if (value === '진행중') {
       ClickStatus = Status.ONGOING;
+      setDone(false);
     } else {
       ClickStatus = Status.NOT_STARTED;
+      setDone(false);
     }
     setStatus(ClickStatus);
     selectStatusTodo(todo.id, ClickStatus);
@@ -50,8 +55,8 @@ const TodoItem = ({ removeTodo, todo, selectStatusTodo }: TodoItemProps) => {
 
   return (
     <TodoItemBlock>
-      <Text>{todo.taskName}</Text>
-      <Text>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
+      <Text done={done}>{todo.taskName}</Text>
+      <Text done={done}>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
       <ElementBlock>
         <button style={{ cursor: 'pointer', marginRight: '10px' }}>수정</button>
         <MySelectBox value={status} handleChange={handleSelectStatus} />
