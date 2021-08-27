@@ -59,15 +59,16 @@ export const useTodo = () => {
   };
 
   const modifyTodo = (id: number, editedTask: string, editDueDate: Date) => {
-       const todomodify = todoState.filter((todo: Itodo) => todo.id === id);
-       todomodify[0].taskName = editedTask;
-       todomodify[0].dueDate = date.converToString(editDueDate);
+    const todomodify = todoState.filter((todo: Itodo) => todo.id === id);
+    todomodify[0].taskName = editedTask;
+    todomodify[0].dueDate = date.converToString(editDueDate);
+    todomodify[0].updatedAt = date.converToString(new Date());
 
-       const noModifyList = todoState.filter((todo: Itodo) => todo.id !== id);
-       const todoList = noModifyList.concat(todomodify);
+    const noModifyList = todoState.filter((todo: Itodo) => todo.id !== id);
+    const todoList = noModifyList.concat(todomodify);
 
-       todoList.sort((o1, o2) => o1.id - o2.id);
-       setTodoState(todoList);
+    todoList.sort((o1, o2) => o1.id - o2.id);
+    setTodoState(todoList);
   };
 
   const loadData = () => {
