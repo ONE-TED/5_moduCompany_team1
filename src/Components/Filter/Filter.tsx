@@ -23,42 +23,6 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
   return (
     <>
       <Item>
-        <Title>정렬</Title>
-        <RadioWrapper>
-          <Row>
-            <Radio
-              name="arrange"
-              type="radio"
-              data-arrange="createdAt"
-              onChange={(e) => onChangeArrange(e)}
-              defaultChecked={true}
-              id="arrange-created"
-            />
-            <Label
-              checked={filter.sort === Sort.CREATED}
-              htmlFor="arrange-created"
-            >
-              생성일순
-            </Label>
-          </Row>
-          <Row>
-            <Radio
-              name="arrange"
-              type="radio"
-              data-arrange="updatedAt"
-              onChange={(e) => onChangeArrange(e)}
-              id="arrange-updated"
-            />
-            <Label
-              checked={filter.sort === Sort.UPDATED}
-              htmlFor="arrange-updated"
-            >
-              업데이트순
-            </Label>
-          </Row>
-        </RadioWrapper>
-      </Item>
-      <Item>
         <Title>진행상태</Title>
         <RadioWrapper>
           <Row>
@@ -117,6 +81,39 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
               htmlFor="progress-finished"
             >
               완료
+            </Label>
+          </Row>
+        </RadioWrapper>
+      </Item>
+      <Item>
+        <Title>정렬</Title>
+        <RadioWrapper>
+          <Row>
+            <Radio
+              name="arrange"
+              type="radio"
+              data-arrange="basic"
+              onChange={(e) => onChangeArrange(e)}
+              defaultChecked={true}
+              id="arrange-basic"
+            />
+            <Label checked={filter.sort === Sort.BASIC} htmlFor="arrange-basic">
+              기본
+            </Label>
+          </Row>
+          <Row>
+            <Radio
+              name="arrange"
+              type="radio"
+              data-arrange="due_date"
+              onChange={(e) => onChangeArrange(e)}
+              id="arrange-duedate"
+            />
+            <Label
+              checked={filter.sort === Sort.DUE_DATE}
+              htmlFor="arrange-duedate"
+            >
+              마감일순
             </Label>
           </Row>
         </RadioWrapper>

@@ -45,7 +45,7 @@ const TodoList: React.FC = () => {
           incrementNextId={incrementNextId}
         />
         <TodoItemsLayout>
-          {applyFilter(todoState, filter).map((item: Itodo, index: number) => (
+          {applyFilter(todoState, filter)?.map((item: Itodo, index: number) => (
             <TodoItem
               key={`item-${item.id}`}
               setModalOpen={setModalOpen}
