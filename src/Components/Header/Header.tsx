@@ -22,7 +22,7 @@ const Header = ({
   const [focusTodo, setFocusTodo] = useState<boolean>(false);
   const [focusValue, setFocusValue] = useState<string>('');
   const [now, setNow] = useState<string>('');
-
+  const [hourMinute, setHourMinute] = useState<string>('');
   useEffect(() => {
     loadFocusTodo();
   }, [focusTodo]);
@@ -40,10 +40,14 @@ const Header = ({
       setFocusTodo(true);
     }
   };
+  
   const getTodayDate = () => {
     const today = new TodoDate();
     const nowString: string = today.getToday();
     const time: string = nowString.split(' ')[1];
+    setNow(time);
+    const temp : string[] = time.split(':');
+    setHourMinute(temp[0]+ ' : ' + temp[1]);
 
     return time;
   };
@@ -75,9 +79,7 @@ const Header = ({
     <>
       <HeaderLayout>
         <HeaderTitleContainer>
-          <HeaderTitleLayout>{`${now.split(':')[0]} : ${
-            now.split(':')[1]
-          }`}</HeaderTitleLayout>
+          <HeaderTitleLayout>{hourMinute}</HeaderTitleLayout>
           <FilterIconLayout>
             <FilterIcon onClick={handleOnClick} />
             <FilterSection opened={openedFilter}>
