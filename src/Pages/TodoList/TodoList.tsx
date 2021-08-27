@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from 'Components/Header';
 import { Todocreate, TodoItem } from 'Components/Todo';
+import Modal from 'utils/Modal/Modal';
 import { useDragAndDrop } from 'Hooks/useDragAndDrop';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
@@ -26,6 +27,7 @@ const TodoList: React.FC = () => {
   return (
     <>
       <TodoListTemplate>
+        <Modal />
         <Header />
         <Todocreate
           nextId={nextIdState}
