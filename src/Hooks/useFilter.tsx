@@ -10,8 +10,9 @@ const initialFilter: Tfilter = {
 const useFilter = () => {
   const date = new TodoDate();
   const [filter, setFilter] = useState<Tfilter>(initialFilter);
+  const [initialTodo, setInitialTodo] = useState<Itodo[] | null>(null);
 
-  const sortByDuedate = (todos: Itodo[], filter: Tfilter): Itodo[] => {
+  const sortByDuedate = (todos: Itodo[]): Itodo[] => {
     return todos.sort(
       (a, b) =>
         date.convertToNumber(a.dueDate) - date.convertToNumber(b.dueDate),
@@ -24,13 +25,12 @@ const useFilter = () => {
   };
 
   const applyFilter = (todos: Itodo[], filter: Tfilter): Itodo[] => {
+    if (initialTodo === null) setInitialTodo(todos);
+
     let sorted: Itodo[] | null = null;
+    if (filter.sort === Sort.DUE_DATE) sorted = sortByDuedate(todos);
 
-    if (filter.sort === Sort.DUE_DATE) {
-      sorted = sortByDuedate(todos, filter);
-    }
-
-    return filterByProgress(sorted || todos, filter);
+    return filterByProgress(sorted || (initialTodo as Itodo[]), filter);
   };
 
   return { filter, setFilter, applyFilter };
