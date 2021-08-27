@@ -3,6 +3,7 @@ import { Itodo, Status } from 'types';
 import { style } from './TodoItemStyle';
 import { MySelectBox, Mydatepicker } from 'Components';
 import { ReactComponent as Trashcan } from 'Assets/icons/trashcan.svg';
+import PencilIcon from 'Assets/icons/pencil.svg';
 
 interface TodoItemProps {
   setModalOpen: (state: boolean) => void;
@@ -107,16 +108,14 @@ const TodoItem = ({
             Duedate={editDueDate}
             handleChange={handleEditDuedate}
           />
-          <button
-            style={{ background: 'black', color: 'white', cursor: 'pointer' }}
-          >
-            등록하기
-          </button>
+          <Complete>완료</Complete>
         </InsertForm>
       ) : (
         <>
           <Text done={done}>{todo.taskName}</Text>
-          <Text done={done}>{dDay > 0 ? `D -${dDay}` : `D +${-dDay}`}</Text>
+          <Dday done={done} status={todo.status}>
+            {dDay > 0 ? `D-${dDay}` : `D+${-dDay}`}
+          </Dday>
         </>
       )}
       <ElementBlock>
@@ -124,7 +123,7 @@ const TodoItem = ({
           style={{ cursor: 'pointer', marginRight: '10px' }}
           onClick={handleModify}
         >
-          {isEdited ? `취소` : `수정`}
+          {isEdited ? <Cancle>취소</Cancle> : <img src={PencilIcon} />}
         </button>
         <MySelectBox value={status} handleChange={handleSelectStatus} />
         <button
@@ -140,4 +139,13 @@ const TodoItem = ({
 
 export default TodoItem;
 
-const { TodoItemBlock, Text, ElementBlock, Input, InsertForm } = style;
+const {
+  TodoItemBlock,
+  Text,
+  Cancle,
+  Complete,
+  Dday,
+  ElementBlock,
+  Input,
+  InsertForm,
+} = style;

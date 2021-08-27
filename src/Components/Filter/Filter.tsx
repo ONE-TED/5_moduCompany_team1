@@ -1,11 +1,20 @@
 import React from 'react';
 import { All, Sort, Status, Tfilter } from 'types';
-import { idText } from 'typescript';
-import { Item, Label, Radio, RadioWrapper, Row, Title } from './FilterStyle';
+import {
+  FilterWrapper,
+  Item,
+  Label,
+  Radio,
+  RadioWrapper,
+  Row,
+  Text,
+  Title,
+} from './FilterStyle';
 
 interface FilterProps {
   filter: Tfilter;
   setFilter: React.Dispatch<React.SetStateAction<Tfilter>>;
+  setOpenedFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
@@ -21,7 +30,7 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
   };
 
   return (
-    <>
+    <FilterWrapper>
       <Item>
         <Title>진행상태</Title>
         <RadioWrapper>
@@ -118,7 +127,8 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
           </Row>
         </RadioWrapper>
       </Item>
-    </>
+      <Text>*정렬 시, 드래그 앤 드랍 적용 안됨.</Text>
+    </FilterWrapper>
   );
 };
 

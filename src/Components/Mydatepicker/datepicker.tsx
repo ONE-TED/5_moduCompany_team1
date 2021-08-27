@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import styled from 'styled-components';
 
 interface IDate {
   Duedate: null | Date;
@@ -10,7 +11,7 @@ interface IDate {
 const datepicker = ({ Duedate, handleChange }: IDate) => {
   return (
     <>
-      <DatePicker
+      <CustomPicker
         showPopperArrow={false}
         dateFormat="yyyy-MM-dd"
         selected={Duedate}
@@ -23,3 +24,12 @@ const datepicker = ({ Duedate, handleChange }: IDate) => {
 };
 
 export default datepicker;
+
+const CustomPicker = styled(DatePicker)`
+  width: 100px;
+  padding: 10px 8px;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  font-size: 15px;
+  color: #c4c4c4;
+`;

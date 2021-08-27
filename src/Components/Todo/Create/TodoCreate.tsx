@@ -3,6 +3,7 @@ import { Itodo, Status } from 'types';
 import { style } from './TodoCreateStyle';
 import { TodoDate } from 'utils/todoDate';
 import { Mydatepicker, MySelectBox } from 'Components';
+import AddIcon from 'Assets/icons/add-button.svg';
 
 interface TodoCreateProps {
   nextId: number;
@@ -75,11 +76,14 @@ const TodoCreate = ({
             onChange={handleChange}
           />
           <Mydatepicker Duedate={dueDate} handleChange={handleDuedate} />
-          <MySelectBox value={status} handleChange={handleSelect} />
-          <button
-            style={{ background: 'black', color: 'white', cursor: 'pointer' }}
-          >
-            등록하기
+          <MySelectBox
+            value={status}
+            handleChange={handleSelect}
+            width={200}
+            isBorder={true}
+          />
+          <button style={{ cursor: 'pointer' }}>
+            <img src={AddIcon} />
           </button>
         </InsertForm>
       </InsertFormPositioner>
