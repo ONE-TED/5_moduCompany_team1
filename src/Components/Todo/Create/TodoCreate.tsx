@@ -27,7 +27,7 @@ const TodoCreate = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (value == '') {
+    if (value.trim() == '') {
       console.log('빈 값은 입력할 수 없습니다.');
       return;
     }
