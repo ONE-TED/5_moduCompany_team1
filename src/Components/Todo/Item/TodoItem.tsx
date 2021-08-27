@@ -5,7 +5,8 @@ import { MySelectBox, Mydatepicker } from 'Components';
 import { ReactComponent as Trashcan } from 'Assets/icons/trashcan.svg';
 
 interface TodoItemProps {
-  removeTodo: (id: number) => void;
+  setModalOpen: (state: boolean) => void;
+  setRemoveBtnClickedTodo: (id: number) => void;
   todo: Itodo;
   selectStatusTodo: (id: number, ClickStatus: Status) => void;
   modifyTodo: (id: number, editedTask: string, editDueDate: Date) => void;
@@ -15,7 +16,8 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({
-  removeTodo,
+  setModalOpen,
+  setRemoveBtnClickedTodo,
   todo,
   selectStatusTodo,
   modifyTodo,
@@ -39,8 +41,9 @@ const TodoItem = ({
     setStatus(todo.status);
   }, [isEdited, todo]);
 
-  const handleRemove = () => {
-    removeTodo(todo.id);
+  const handleRemoveButtonClicked = () => {
+    setModalOpen(true);
+    setRemoveBtnClickedTodo(todo.id);
   };
 
   const calculateDday = (dateString: string) => {
@@ -124,7 +127,10 @@ const TodoItem = ({
           {isEdited ? `취소` : `수정`}
         </button>
         <MySelectBox value={status} handleChange={handleSelectStatus} />
-        <button style={{ cursor: 'pointer' }} onClick={handleRemove}>
+        <button
+          style={{ cursor: 'pointer' }}
+          onClick={handleRemoveButtonClicked}
+        >
           <Trashcan />
         </button>
       </ElementBlock>

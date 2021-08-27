@@ -11,6 +11,7 @@ const ModalLayout = styled.div`
   background: rgba(0, 0, 0, 0.6);
   top: 50;
   right: 50;
+  z-index: 99;
 `;
 
 const ModalBlock = styled.div`
