@@ -2,15 +2,16 @@ import styled from 'styled-components';
 import { ReactComponent as closeButton } from 'Assets/icons/closeButton.svg';
 
 const ModalLayout = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(95px + 100vh);
   background: rgba(0, 0, 0, 0.6);
-  top: 50;
-  right: 50;
+  top: -95px;
+  left: 0;
+  right: 0;
   z-index: 99;
 `;
 
@@ -19,8 +20,12 @@ const ModalBlock = styled.div`
   flex-direction: column;
   border-radius: 10px;
   background-color: white;
-  width: 18%;
+  width: 350px;
   height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
 `;
 
 const CloseButton = styled(closeButton)`
