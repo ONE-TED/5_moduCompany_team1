@@ -22,8 +22,7 @@ const Header = ({
   const [focusTodo, setFocusTodo] = useState<boolean>(false);
   const [focusValue, setFocusValue] = useState<string>('');
   const [now, setNow] = useState<string>('');
-  // let hour : string =
-  // let minute : string =
+
   useEffect(() => {
     loadFocusTodo();
   }, [focusTodo]);
@@ -59,7 +58,9 @@ const Header = ({
 
   const handleSubmitFocus = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (focusValue.trim() === '') {
+      return;
+    }
     localStorage.setItem('focus', focusValue);
     setFocusTodo(true);
   };
