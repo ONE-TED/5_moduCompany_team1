@@ -132,7 +132,7 @@ const Filter = ({
           </Row>
         </RadioWrapper>
       </Item>
-      <Text>*필터 적용시, 드래그앤드랍 적용 안됨</Text>
+      <Text>*정렬 시, 드래그 앤 드랍 적용 안됨.</Text>
     </FilterWrapper>
   );
 };

@@ -6,7 +6,7 @@ export const FilterWrapper = styled.div`
   position: absolute;
   left: 30px;
   top: 15px;
-  width: 150px;
+  width: 170px;
   z-index: 10;
 `;
 
@@ -20,6 +20,7 @@ export const Title = styled.h2`
   font-size: 13px;
   position: absolute;
   left: -16px;
+  margin-bottom: 5px;
 `;
 
 export const RadioWrapper = styled.div`
@@ -38,7 +39,7 @@ export const Radio = styled.input`
 
 export const Label = styled.label<{ checked: boolean }>`
   font-size: 12px;
-  line-height: 16px;
+  line-height: 20px;
   color: ${({ checked }) => (checked ? '#5491ED' : '#646464')};
   position: relative;
   cursor: pointer;

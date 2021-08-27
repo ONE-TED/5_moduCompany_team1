@@ -6,6 +6,7 @@ const TodoListTemplate = styled.div`
   position: relative;
   margin-top: 95px;
 `;
+
 const TodoItemsLayout = styled.div`
   width: 100%;
   padding: 30px;
@@ -13,7 +14,8 @@ const TodoItemsLayout = styled.div`
 
 const BodyContainer = styled.div`
   position: fixed;
-  width: 70%;
+  width: 100%;
+  max-width: 700px;
   top: 20%;
   z-index: -1;
 `;

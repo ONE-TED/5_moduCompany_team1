@@ -70,7 +70,7 @@ const InsertForm = styled.form`
 `;
 
 const Complete = styled.button`
-  width: 30px;
+  width: 70px;
   margin-right: 8px;
   cursor: pointer;
 `;

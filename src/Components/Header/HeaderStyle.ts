@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
 
 const HeaderLayout = styled.div`
-  position: fixed;
-  left: 0;
   top: 0;
   width: 100%;
   height: 20%;
@@ -12,6 +10,10 @@ const HeaderLayout = styled.div`
   justify-content: center;
   padding: 1rem;
   border-bottom: 2px solid #5491ed;
+  max-width: 700px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const HeaderTitleContainer = styled.div`
@@ -43,9 +45,9 @@ const FilterSection = styled.div<{ opened: boolean }>`
   z-index: 20;
   position: absolute;
   right: 10px;
-  top: 10px;
-  width: 200px;
-  height: 200px;
+  top: 20px;
+  width: 220px;
+  height: 220px;
   background: #fff;
   opacity: ${({ opened }) => (opened ? '1' : '0')};
   visibility: ${({ opened }) => (opened ? 'visible' : 'hidden')};
