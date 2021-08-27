@@ -2,10 +2,18 @@ import styled from 'styled-components';
 import GrayRadio from 'Assets/icons/radio-gray.svg';
 import BlueRadio from 'Assets/icons/radio-blue.svg';
 
+export const FilterWrapper = styled.div`
+  position: absolute;
+  left: 30px;
+  top: 15px;
+  width: 150px;
+  z-index: 10;
+`;
+
 export const Item = styled.div`
-  position: relative;
   margin-bottom: 20px;
   width: 100px;
+  position: relative;
 `;
 
 export const Title = styled.h2`
@@ -48,4 +56,12 @@ export const Label = styled.label<{ checked: boolean }>`
     border-radius: 50%;
     cursor: pointer;
   }
+`;
+
+export const Text = styled.span`
+  font-size: 11px;
+  color: #d76b6b;
+  position: absolute;
+  bottom: 0;
+  left: -15px;
 `;

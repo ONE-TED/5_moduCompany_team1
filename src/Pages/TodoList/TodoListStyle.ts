@@ -4,11 +4,11 @@ const TodoListTemplate = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'column')};
   background: white;
   position: relative;
+  margin-top: 95px;
 `;
 const TodoItemsLayout = styled.div`
-  overflow-y: scroll;
-  margin: 2rem;
-  width: 70%;
+  width: 100%;
+  padding: 30px;
 `;
 
 export const style = {
