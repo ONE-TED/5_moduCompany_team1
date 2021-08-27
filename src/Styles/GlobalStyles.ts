@@ -23,4 +23,7 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
         outline: none;
     }
+    .react-datepicker-wrapper {
+        width: 150px;
+    }
 `;

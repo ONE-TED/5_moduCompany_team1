@@ -1,3 +1,4 @@
+import { Status } from 'types';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -8,22 +9,32 @@ interface ItodoItem {
 }
 
 const TodoItemBlock = styled.div<ItodoItem>`
-  padding: 10px 0;
+  padding: 10px 20px;
   display: flex;
-  justify-content: space-around;
-  border: 1px solid #000;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+  position: relative;
 `;
 
 const Text = styled.div<{ done: boolean }>`
-  font-size: 20px;
-  color: #119955;
+  font-size: 15px;
+  color: #474747;
   ${(props) =>
     props.done &&
     css`
-      color: #ced4da;
+      color: #a6a6a6;
       text-decoration: line-through;
     `}
+`;
+
+const Dday = styled.div<{ done: boolean; status: string }>`
+  font-size: 13px;
+  font-weight: bold;
+  color: ${({ status }) => (status === Status.ONGOING ? '#D76B6B' : '#C7C7C7')};
+  opacity: ${({ done }) => (done ? '0' : '1')};
+  position: absolute;
+  right: 170px;
 `;
 
 const ElementBlock = styled.div`
@@ -31,14 +42,21 @@ const ElementBlock = styled.div`
   align-items: center;
 `;
 
+const Cancle = styled.span`
+  width: 30px;
+  display: inline-block;
+  color: #c1c1c1;
+`;
+
 const Input = styled.input`
   padding: 12px;
-  border: 1px solid black;
+  margin-right: 10px;
+  border: 1px solid #d6d6d6;
   width: 100%;
   outline: none;
-  font-size: 21px;
+  font-size: 15px;
   box-sizing: border-box;
-  color: #119955;
+  color: #c4c4c4;
   &::placeholder {
     color: lightgray;
     font-size: 16px;
@@ -48,15 +66,21 @@ const Input = styled.input`
 const InsertForm = styled.form`
   display: flex;
   background: white;
-  padding-left: 40px;
-  padding-top: 36px;
-  padding-right: 60px;
-  padding-bottom: 36px;
+  flex: 1;
+`;
+
+const Complete = styled.button`
+  width: 30px;
+  margin-right: 8px;
+  cursor: pointer;
 `;
 
 export const style = {
   TodoItemBlock,
   Text,
+  Dday,
+  Cancle,
+  Complete,
   ElementBlock,
   Input,
   InsertForm,

@@ -26,6 +26,7 @@ const TodoList: React.FC = () => {
   const { filter, setFilter, applyFilter } = useFilter();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [removeBtnClickedTodo, setRemoveBtnClickedTodo] = useState<number>(0);
+  const [openedFilter, setOpenedFilter] = useState(false);
 
   return (
     <>
@@ -37,8 +38,13 @@ const TodoList: React.FC = () => {
             removeBtnClickedTodo={removeBtnClickedTodo}
           />
         )}
-        <Header />
-        <Filter filter={filter} setFilter={setFilter} />
+        <Header
+          filter={filter}
+          setFilter={setFilter}
+          openedFilter={openedFilter}
+          setOpenedFilter={setOpenedFilter}
+        />
+
         <Todocreate
           nextId={nextIdState}
           createTodo={createTodo}

@@ -1,27 +1,26 @@
 import styled from 'styled-components';
 
 const InsertFormPositioner = styled.div`
-  width: 60%;
-  border-bottom: 1px solid black;
+  width: 100%;
 `;
 
 const InsertForm = styled.form`
   display: flex;
-  background: white;
-  padding-left: 40px;
-  padding-top: 36px;
-  padding-right: 60px;
-  padding-bottom: 36px;
+  background: #f8f8f8;
+  padding: 20px 30px;
+  align-items: center;
 `;
 
 const Input = styled.input`
-  padding: 12px;
-  border: 1px solid black;
+  padding: 10px;
+  border: 1px solid #d6d6d6;
+  background-color: #fff;
   width: 100%;
   outline: none;
-  font-size: 21px;
+  font-size: 15px;
   box-sizing: border-box;
-  color: #119955;
+  color: #c4c4c4;
+  margin-right: 10px;
   &::placeholder {
     color: lightgray;
     font-size: 16px;
