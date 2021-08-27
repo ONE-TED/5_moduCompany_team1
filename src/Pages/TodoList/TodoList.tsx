@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Header from 'Components/Header';
 import { Todocreate, TodoItem } from 'Components/Todo';
 import Modal from 'utils/Modal/Modal';
 import { useDragAndDrop } from 'Hooks/useDragAndDrop';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
-import Filter from 'Components/Filter';
 import useFilter from 'Hooks/useFilter';
-import { Itodo, Status } from 'types';
+import { Itodo } from 'types';
 
 const TodoList: React.FC = () => {
   const {
@@ -22,7 +21,6 @@ const TodoList: React.FC = () => {
   } = useTodo();
   const { handleOnDragStart, handleOnDragOver, handleOnDragEnd } =
     useDragAndDrop({ todoState, setTodoState });
-  const [list, setList] = useState<Itodo[]>(todoState);
   const { filter, setFilter, applyFilter } = useFilter();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [removeBtnClickedTodo, setRemoveBtnClickedTodo] = useState<number>(0);

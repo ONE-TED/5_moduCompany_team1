@@ -10,7 +10,6 @@ import {
   Text,
   Title,
 } from './FilterStyle';
-import CloseIcon from 'Assets/icons/closeButton.svg';
 
 interface FilterProps {
   filter: Tfilter;
@@ -18,11 +17,7 @@ interface FilterProps {
   setOpenedFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Filter = ({
-  filter,
-  setFilter,
-  setOpenedFilter,
-}: FilterProps): JSX.Element => {
+const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
   const onChangeArrange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter({ ...filter, sort: e.target.dataset.arrange as Sort });
   };
