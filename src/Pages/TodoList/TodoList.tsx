@@ -28,14 +28,14 @@ const TodoList: React.FC = () => {
     <>
       <TodoListTemplate>
         <Header />
-         <Filter filter={filter} setFilter={setFilter} />
+        <Filter filter={filter} setFilter={setFilter} />
         <Todocreate
           nextId={nextIdState}
           createTodo={createTodo}
           incrementNextId={incrementNextId}
         />
         <TodoItemsLayout>
-          {applyFilter(list, filter).map((item: Itodo, index: number) => (
+          {applyFilter(todoState, filter).map((item: Itodo, index: number) => (
             <TodoItem
               key={`item-${item.id}`}
               removeTodo={removeTodo}
