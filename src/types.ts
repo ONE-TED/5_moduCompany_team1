@@ -14,8 +14,8 @@ export interface Itodo {
 }
 
 export enum Sort {
-  CREATED = 'createdAt',
-  UPDATED = 'updatedAt',
+  BASIC = 'basic',
+  DUE_DATE = 'due_date',
 }
 
 export type All = '전체';
