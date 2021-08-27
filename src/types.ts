@@ -10,6 +10,7 @@ export interface Itodo {
   status: Status;
   createdAt: string;
   updatedAt: string;
+  dueDate: string;
 }
 
 export enum Sort {

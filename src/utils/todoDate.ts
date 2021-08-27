@@ -12,6 +12,12 @@ export class TodoDate {
     return formatted;
   }
 
+  converToString(date: Date): StringDate {
+    const kstDate = this.getKST(date);
+    const formatted = this.format(kstDate);
+
+    return formatted;
+  }
   convertToNumber(krString: StringDate): NumberDate {
     const krDate = new Date(krString);
     return this.getKST(krDate).getTime();

@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from 'Components/Header';
-import data from 'data.json';
-import TodoCreate from 'Components/Todo/Create';
+import { Todocreate, TodoItem } from 'Components/Todo';
+import { useDragAndDrop } from 'Hooks/useDragAndDrop';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
-import { Itodo } from 'types';
 import Filter from 'Components/Filter';
 import useFilter from 'Hooks/useFilter';
+import { Itodo, Status } from 'types';
 
 const TodoList: React.FC = () => {
-  const { todoState, nextIdState, incrementNextId, removeTodo, createTodo } =
-    useTodo();
-
+  const {
+    todoState,
+    setTodoState,
+    nextIdState,
+    incrementNextId,
+    removeTodo,
+    createTodo,
+    selectStatusTodo,
+    modifyTodo,
+  } = useTodo();
+  const { handleOnDragStart, handleOnDragOver, handleOnDragEnd } =
+    useDragAndDrop({ todoState, setTodoState });
   const [list, setList] = useState<Itodo[]>(todoState);
   const { filter, setFilter, applyFilter } = useFilter();
 
@@ -19,25 +28,32 @@ const TodoList: React.FC = () => {
     <>
       <TodoListTemplate>
         <Header />
-        <Filter filter={filter} setFilter={setFilter} />
-        <TodoCreate
+         <Filter filter={filter} setFilter={setFilter} />
+        <Todocreate
           nextId={nextIdState}
           createTodo={createTodo}
           incrementNextId={incrementNextId}
         />
         <TodoItemsLayout>
-          <ul style={{ padding: '20px' }}>
-            {applyFilter(list, filter).map((item: Itodo) => (
-              <Li key={item.id}>
-                <span style={{ fontSize: '20px' }}>{item.taskName}</span>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <button>icon</button>
-                  <div>selectBox</div>
-                  <button>휴지통</button>
-                </div>
-              </Li>
-            ))}
-          </ul>
+          {applyFilter(list, filter).map((item: Itodo, index: number) => (
+            <TodoItem
+              key={`item-${item.id}`}
+              removeTodo={removeTodo}
+              todo={item}
+              selectStatusTodo={selectStatusTodo}
+              modifyTodo={modifyTodo}
+              onDragStart={(e) => {
+                handleOnDragStart(e, index);
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                handleOnDragOver(e, index);
+              }}
+              onDragEnd={(e) => {
+                handleOnDragEnd(e);
+              }}
+            />
+          ))}
         </TodoItemsLayout>
       </TodoListTemplate>
     </>
@@ -45,4 +61,4 @@ const TodoList: React.FC = () => {
 };
 export default TodoList;
 
-const { TodoListTemplate, Li, TodoItemsLayout } = style;
+const { TodoListTemplate, TodoItemsLayout } = style;

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Itodo } from 'types';
+import { Itodo, Status } from 'types';
 import data from 'data.json';
+import { TodoDate } from 'utils/todoDate';
 
 export const useTodo = () => {
   let initialTodos: Itodo[] = data as Itodo[];
 
   const [todoState, setTodoState] = useState(initialTodos);
   const [nextIdState, setNextIdState] = useState(0);
+  const date = new TodoDate();
 
   useEffect(() => {
     loadData();
@@ -44,6 +46,30 @@ export const useTodo = () => {
     );
   };
 
+  const selectStatusTodo = (id: number, ClickStatus: Status) => {
+    const todoSelect = todoState.filter((todo: Itodo) => todo.id === id);
+    todoSelect[0].status = ClickStatus;
+    todoSelect[0].updatedAt = date.converToString(new Date());
+
+    const noSelectList = todoState.filter((todo: Itodo) => todo.id !== id);
+    const todoList = noSelectList.concat(todoSelect);
+
+    todoList.sort((o1, o2) => o1.id - o2.id);
+    setTodoState(todoList);
+  };
+
+  const modifyTodo = (id: number, editedTask: string, editDueDate: Date) => {
+       const todomodify = todoState.filter((todo: Itodo) => todo.id === id);
+       todomodify[0].taskName = editedTask;
+       todomodify[0].dueDate = date.converToString(editDueDate);
+
+       const noModifyList = todoState.filter((todo: Itodo) => todo.id !== id);
+       const todoList = noModifyList.concat(todomodify);
+
+       todoList.sort((o1, o2) => o1.id - o2.id);
+       setTodoState(todoList);
+  };
+
   const loadData = () => {
     let data = localStorage.getItem('todos');
 
@@ -51,6 +77,7 @@ export const useTodo = () => {
       data = '';
     } else {
       initialTodos = JSON.parse(data);
+      // initialTodos = initialTodos;
     }
 
     if (initialTodos && initialTodos.length >= 1) {
@@ -65,9 +92,12 @@ export const useTodo = () => {
 
   return {
     todoState,
+    setTodoState,
     nextIdState,
     incrementNextId,
     removeTodo,
     createTodo,
+    selectStatusTodo,
+    modifyTodo,
   };
 };
