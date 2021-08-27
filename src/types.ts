@@ -12,3 +12,15 @@ export interface Itodo {
   updatedAt: string;
   dueDate: string;
 }
+
+export enum Sort {
+  CREATED = 'createdAt',
+  UPDATED = 'updatedAt',
+}
+
+export type All = '전체';
+
+export type Tfilter = {
+  sort: Sort;
+  progress: Status | All;
+};

@@ -35,7 +35,9 @@ const TodoItem = ({
       calculateDday(todo.dueDate);
     }
     todo.status === '완료' ? setDone(true) : setDone(false);
-  }, [isEdited]);
+    setEditedTask(todo.taskName);
+    setStatus(todo.status);
+  }, [isEdited, todo]);
 
   const handleRemove = () => {
     removeTodo(todo.id);

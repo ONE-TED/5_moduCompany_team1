@@ -42,8 +42,13 @@ export const useDragAndDrop = ({
     } else {
       rearTodos.splice(dragStartIndex.current - dragOverIndex.current, 1);
     }
-
-    const temp = [...frontTodos, ...draggedEl, ...rearTodos];
+    const temp: Itodo[] = [...frontTodos, ...draggedEl, ...rearTodos];
+    for (let i = 0; i < temp.length; i++) {
+      temp[i] = {
+        ...temp[i],
+        id: i,
+      };
+    }
     setTodoState(temp);
   };
 
