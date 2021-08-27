@@ -44,38 +44,41 @@ const TodoList: React.FC = () => {
           openedFilter={openedFilter}
           setOpenedFilter={setOpenedFilter}
         />
-
-        <Todocreate
-          nextId={nextIdState}
-          createTodo={createTodo}
-          incrementNextId={incrementNextId}
-        />
-        <TodoItemsLayout>
-          {applyFilter(todoState, filter)?.map((item: Itodo, index: number) => (
-            <TodoItem
-              key={`item-${item.id}`}
-              setModalOpen={setModalOpen}
-              setRemoveBtnClickedTodo={setRemoveBtnClickedTodo}
-              todo={item}
-              selectStatusTodo={selectStatusTodo}
-              modifyTodo={modifyTodo}
-              onDragStart={(e) => {
-                handleOnDragStart(e, index);
-              }}
-              onDragOver={(e) => {
-                e.preventDefault();
-                handleOnDragOver(e, index);
-              }}
-              onDragEnd={(e) => {
-                handleOnDragEnd(e);
-              }}
-            />
-          ))}
-        </TodoItemsLayout>
+        <BodyContainer>
+          <Todocreate
+            nextId={nextIdState}
+            createTodo={createTodo}
+            incrementNextId={incrementNextId}
+          />
+          <TodoItemsLayout>
+            {applyFilter(todoState, filter)?.map(
+              (item: Itodo, index: number) => (
+                <TodoItem
+                  key={`item-${item.id}`}
+                  setModalOpen={setModalOpen}
+                  setRemoveBtnClickedTodo={setRemoveBtnClickedTodo}
+                  todo={item}
+                  selectStatusTodo={selectStatusTodo}
+                  modifyTodo={modifyTodo}
+                  onDragStart={(e) => {
+                    handleOnDragStart(e, index);
+                  }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    handleOnDragOver(e, index);
+                  }}
+                  onDragEnd={(e) => {
+                    handleOnDragEnd(e);
+                  }}
+                />
+              ),
+            )}
+          </TodoItemsLayout>
+        </BodyContainer>
       </TodoListTemplate>
     </>
   );
 };
 export default TodoList;
 
-const { TodoListTemplate, TodoItemsLayout } = style;
+const { TodoListTemplate, TodoItemsLayout, BodyContainer } = style;
