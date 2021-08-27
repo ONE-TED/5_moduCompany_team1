@@ -65,7 +65,6 @@ const Close = styled.button<{ onClick: any }>`
 const HeaderFocusContainer = styled.div`
   width: 100%;
   display: inline-block;
-  ${({ theme }) => theme.flexSet('center', 'center', 'row')};
 `;
 
 const FocusValueWrap = styled.div`
@@ -87,16 +86,19 @@ const FocusText = styled.div`
 `;
 
 const InputForm = styled.form`
-  width: 30%;
+  width: 100%;
+  text-align: center;
 `;
 
 const InputWrap = styled.div`
   display: flex;
   width: 100%;
+  place-content: center;
 `;
 const FocusInput = styled.input`
-  width: 90%;
+  width: 50%;
   border-bottom: 1px solid black;
+  text-align: center;
 `;
 
 export const style = {
