@@ -1,14 +1,28 @@
 import React from 'react';
 import { All, Sort, Status, Tfilter } from 'types';
-import { idText } from 'typescript';
-import { Item, Label, Radio, RadioWrapper, Row, Title } from './FilterStyle';
+import {
+  FilterWrapper,
+  Item,
+  Label,
+  Radio,
+  RadioWrapper,
+  Row,
+  Text,
+  Title,
+} from './FilterStyle';
+import CloseIcon from 'Assets/icons/closeButton.svg';
 
 interface FilterProps {
   filter: Tfilter;
   setFilter: React.Dispatch<React.SetStateAction<Tfilter>>;
+  setOpenedFilter: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
+const Filter = ({
+  filter,
+  setFilter,
+  setOpenedFilter,
+}: FilterProps): JSX.Element => {
   const onChangeArrange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter({ ...filter, sort: e.target.dataset.arrange as Sort });
   };
@@ -21,7 +35,7 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
   };
 
   return (
-    <>
+    <FilterWrapper>
       <Item>
         <Title>진행상태</Title>
         <RadioWrapper>
@@ -118,7 +132,8 @@ const Filter = ({ filter, setFilter }: FilterProps): JSX.Element => {
           </Row>
         </RadioWrapper>
       </Item>
-    </>
+      <Text>*필터 적용시, 드래그앤드랍 적용 안됨</Text>
+    </FilterWrapper>
   );
 };
 
