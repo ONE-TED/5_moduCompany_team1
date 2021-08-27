@@ -4,7 +4,7 @@ import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
 const HeaderLayout = styled.div`
   top: 0;
   width: 100%;
-  height: 20%;
+  height: 180px;
   background-color: #fff;
   display: inline-block;
   justify-content: center;
@@ -14,6 +14,7 @@ const HeaderLayout = styled.div`
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 20;
 `;
 
 const HeaderTitleContainer = styled.div`
@@ -76,13 +77,13 @@ const FocusValueWrap = styled.div`
 `;
 
 const FocusDescription = styled.div`
-  font-size: x-large;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 const FocusText = styled.div`
-  font-size: 40px;
+  font-size: 30px;
   margin-bottom: 10px;
   color: #5491ed;
 `;

@@ -4,7 +4,7 @@ const TodoListTemplate = styled.div`
   ${({ theme }) => theme.flexSet('center', 'center', 'column')};
   background: white;
   position: relative;
-  margin-top: 95px;
+  margin-top: 180px;
 `;
 
 const TodoItemsLayout = styled.div`
@@ -13,11 +13,9 @@ const TodoItemsLayout = styled.div`
 `;
 
 const BodyContainer = styled.div`
-  position: fixed;
   width: 100%;
   max-width: 700px;
-  top: 20%;
-  z-index: -1;
+  top: 0;
 `;
 
 export const style = {
