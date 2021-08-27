@@ -4,6 +4,8 @@ import { Todocreate, TodoItem } from 'Components/Todo';
 import { useDragAndDrop } from 'Hooks/useDragAndDrop';
 import { useTodo } from 'Hooks/useTodo';
 import { style } from './TodoListStyle';
+import Filter from 'Components/Filter';
+import useFilter from 'Hooks/useFilter';
 import { Itodo, Status } from 'types';
 
 const TodoList: React.FC = () => {
@@ -17,23 +19,23 @@ const TodoList: React.FC = () => {
     selectStatusTodo,
     modifyTodo,
   } = useTodo();
-
   const { handleOnDragStart, handleOnDragOver, handleOnDragEnd } =
     useDragAndDrop({ todoState, setTodoState });
-
-  const [list, setList] = useState<Itodo[] | null>(null);
+  const [list, setList] = useState<Itodo[]>(todoState);
+  const { filter, setFilter, applyFilter } = useFilter();
 
   return (
     <>
       <TodoListTemplate>
         <Header />
+         <Filter filter={filter} setFilter={setFilter} />
         <Todocreate
           nextId={nextIdState}
           createTodo={createTodo}
           incrementNextId={incrementNextId}
         />
         <TodoItemsLayout>
-          {todoState.map((item: Itodo, index: number) => (
+          {applyFilter(list, filter).map((item: Itodo, index: number) => (
             <TodoItem
               key={`item-${item.id}`}
               removeTodo={removeTodo}
