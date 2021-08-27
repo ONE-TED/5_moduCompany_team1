@@ -31,7 +31,7 @@ export const Radio = styled.input`
 export const Label = styled.label<{ checked: boolean }>`
   font-size: 12px;
   line-height: 16px;
-  color: #646464;
+  color: ${({ checked }) => (checked ? '#5491ED' : '#646464')};
   position: relative;
   cursor: pointer;
 
@@ -39,7 +39,8 @@ export const Label = styled.label<{ checked: boolean }>`
     content: '';
     position: absolute;
     left: -16px;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 13px;
     height: 13px;
     background-image: ${({ checked }) =>
