@@ -31,6 +31,7 @@
     <summary><STRONG>
        📚 과제 요구사항 보기
         </STRONG></summary>
+        
 ## 공통 가이드
 
 - **`TypeScript`** 사용
