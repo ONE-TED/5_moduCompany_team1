@@ -117,15 +117,21 @@
 
 `TodoList` [곽병선](https://github.com/kwak-bs)
 
-- [x] ~~
+- [x] 할 일, 마감일, 진행 상태 입력 기능.
+- [x] 항목에서 삭제, D-day 표시, 진행 상태와 Task 수정 기능.
+- [x] Header FocusTodo 기능.
 
 `Drag && Drop` [박현아](https://github.com/ha3158987)
 
-- [x] ~~
+- [x] Todo 항목 Drag && Drop 기능
+- [x] 삭제 시, 컨펌 모달 구현
 
 `Filter` [김유진](https://github.com/jellybrown)
 
-  - [x] ~~
+- [x] 이중 필터 기능 
+      - [x] 진행 상태 : `전체`, `시작 안함`, `진행중`, `완료`
+      - [x] 정렬 : `기본`, `마감일순`
+- [x] TodoList 영역 스타일링
 
 
 
