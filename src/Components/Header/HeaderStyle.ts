@@ -68,7 +68,7 @@ const HeaderFocusContainer = styled.div`
 `;
 
 const FocusValueWrap = styled.div`
-  ${({ theme }) => theme.flexSet('center', 'center', 'row')};
+  justify-content: center;
   display: flex;
   width: 100%;
 `;
