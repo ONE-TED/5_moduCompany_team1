@@ -1,11 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-
+import React, { useState, useEffect } from 'react';
 import { TodoDate } from 'utils/todoDate';
-import { ReactComponent as filterIcon } from 'Assets/icons/filter.svg';
 import { Tfilter } from 'types';
 import Filter from 'Components/Filter';
 import CloseIcon from 'Assets/icons/closeButton.svg';
+import { style } from './HeaderStyle';
+import PencilIcon from 'Assets/icons/pencil.svg';
 
 interface HeaderProps {
   filter: Tfilter;
@@ -20,95 +19,137 @@ const Header = ({
   openedFilter,
   setOpenedFilter,
 }: HeaderProps) => {
+  const [focusTodo, setFocusTodo] = useState<boolean>(false);
+  const [focusValue, setFocusValue] = useState<string>('');
+  const [now, setNow] = useState<string>('');
+  const [hourMinute, setHourMinute] = useState<string>('');
+  useEffect(() => {
+    loadFocusTodo();
+  }, [focusTodo]);
+
+  useEffect(() => {
+    setTimeout(() => setNow(getTodayDate()), 1000);
+  }, [now]);
+
+  const loadFocusTodo = () => {
+    const focusTodo = localStorage.getItem('focus');
+
+    if (focusTodo === null) {
+      setFocusTodo(false);
+    } else {
+      setFocusTodo(true);
+      setFocusValue(focusTodo);
+    }
+  };
+
   const getTodayDate = () => {
     const today = new TodoDate();
-    return today.getToday();
+    const nowString: string = today.getToday();
+    const time: string = nowString.split(' ')[1];
+    setNow(time);
+    const temp: string[] = time.split(':');
+    setHourMinute(temp[0] + ' : ' + temp[1]);
+
+    return time;
   };
 
   const handleOnClick = () => {
     setOpenedFilter(true);
   };
 
+  const handleFocusTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFocusValue(e.target.value);
+  };
+
+  const handleSubmitFocus = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (focusValue.trim() === '') {
+      return;
+    }
+    localStorage.setItem('focus', focusValue);
+    setFocusTodo(true);
+  };
+
+  const handleModifyFocusTodo = () => {
+    localStorage.removeItem('focus');
+    setFocusValue('');
+    setFocusTodo(false);
+  };
+
   return (
     <>
       <HeaderLayout>
-        <HeaderTitleLayout>{`Today is : ${getTodayDate()}`}</HeaderTitleLayout>
-        <FilterIconLayout>
-          <FilterIcon onClick={handleOnClick} />
-          <FilterSection opened={openedFilter}>
-            {openedFilter && (
-              <>
-                <Filter
-                  filter={filter}
-                  setFilter={setFilter}
-                  setOpenedFilter={setOpenedFilter}
-                />
-                <Close onClick={() => setOpenedFilter(false)}>
-                  <img src={CloseIcon} />
-                </Close>
-              </>
-            )}
-          </FilterSection>
-        </FilterIconLayout>
+        <HeaderTitleContainer>
+          <HeaderTitleLayout>{hourMinute}</HeaderTitleLayout>
+          <FilterIconLayout>
+            <FilterIcon onClick={handleOnClick} />
+            <FilterSection opened={openedFilter}>
+              {openedFilter && (
+                <>
+                  <Filter
+                    filter={filter}
+                    setFilter={setFilter}
+                    setOpenedFilter={setOpenedFilter}
+                  />
+                  <Close onClick={() => setOpenedFilter(false)}>
+                    <img src={CloseIcon} style={{ width: '15px' }} />
+                  </Close>
+                </>
+              )}
+            </FilterSection>
+          </FilterIconLayout>
+        </HeaderTitleContainer>
+        <HeaderFocusContainer>
+          {focusTodo ? (
+            <>
+              <FocusValueWrap>
+                <FocusText>{focusValue}</FocusText>
+                <button
+                  onClick={handleModifyFocusTodo}
+                  style={{ cursor: 'pointer', marginLeft: '10px' }}
+                >
+                  <img src={PencilIcon} />
+                </button>
+              </FocusValueWrap>
+            </>
+          ) : (
+            <>
+              <InputForm onSubmit={handleSubmitFocus}>
+                <FocusDescription>
+                  집중해야할 한가지 일을 적어보세요.
+                </FocusDescription>
+                <InputWrap>
+                  <FocusInput
+                    autoFocus
+                    value={focusValue}
+                    onChange={handleFocusTodo}
+                  />
+                  <button></button>
+                </InputWrap>
+              </InputForm>{' '}
+            </>
+          )}
+        </HeaderFocusContainer>
       </HeaderLayout>
     </>
   );
 };
 
-const HeaderLayout = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-  border-bottom: 2px solid #5491ed;
-`;
-
-const HeaderTitleLayout = styled.div`
-  width: 95%;
-  padding: 1rem;
-  text-align: center;
-  color: #555555;
-  font-size: 2rem;
-`;
-
-const FilterIconLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 5%;
-`;
-
-const FilterIcon = styled(filterIcon)`
-  width: 2rem;
-  height: auto;
-
-  cursor: pointer;
-`;
-
-const FilterSection = styled.div<{ opened: boolean }>`
-  z-index: 20;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 200px;
-  height: 200px;
-  background: #fff;
-  opacity: ${({ opened }) => (opened ? '1' : '0')};
-  visibility: ${({ opened }) => (opened ? 'visible' : 'hidden')};
-  border-radius: 5px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
-`;
-
-const Close = styled.button<{ onClick: any }>`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 10px;
-  height: 10px;
-  cursor: pointer;
-`;
-
 export default Header;
+
+const {
+  HeaderLayout,
+  HeaderTitleLayout,
+  FilterIconLayout,
+  FilterIcon,
+  FilterSection,
+  Close,
+  HeaderTitleContainer,
+  HeaderFocusContainer,
+  FocusValueWrap,
+  FocusText,
+  InputForm,
+  InputWrap,
+  FocusInput,
+  FocusDescription,
+} = style;

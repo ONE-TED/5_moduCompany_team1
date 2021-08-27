@@ -11,7 +11,15 @@ const TodoItemsLayout = styled.div`
   padding: 30px;
 `;
 
+const BodyContainer = styled.div`
+  position: fixed;
+  width: 70%;
+  top: 20%;
+  z-index: -1;
+`;
+
 export const style = {
   TodoListTemplate,
   TodoItemsLayout,
+  BodyContainer,
 };
