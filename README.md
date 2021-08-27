@@ -7,11 +7,9 @@
 
 
 
-
-
 ---
 
-🧐[노션 페이지](https://www.notion.so/fb50665e31bc48ef83c8bb97b99e4182)에서 더 다양한 내용을 확인해보세요!
+🧐[노션 페이지](https://www.notion.so/fb50665e31bc48ef83c8bb97b99e4182)에서 팀원별 상세 역할 등 다양한 내용을 확인해보세요!
 
 😎[Discussions](https://github.com/ONE-TED/5_moduCompany_team1/discussions)탭에서 미팅 로그를 확인해보세요!
 
@@ -31,7 +29,7 @@
     <summary><STRONG>
        📚 과제 요구사항 보기
         </STRONG></summary>
-        
+
 ## 공통 가이드
 
 - **`TypeScript`** 사용
@@ -117,15 +115,15 @@
 
 ## 📑 구현 목록
 
-`TodoList`
+`TodoList` [곽병선](https://github.com/kwak-bs)
 
 - [x] ~~
 
-`Drag && Drop`
+`Drag && Drop` [박현아](https://github.com/ha3158987)
 
 - [x] ~~
 
-`Filter`
+`Filter` [김유진](https://github.com/jellybrown)
 
   - [x] ~~
 
