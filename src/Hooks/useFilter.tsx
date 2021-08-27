@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Itodo, Sort, Tfilter } from 'types';
 import { TodoDate } from 'utils/todoDate';
 
@@ -11,9 +12,15 @@ const useFilter = () => {
   const date = new TodoDate();
   const [filter, setFilter] = useState<Tfilter>(initialFilter);
   const [initialTodo, setInitialTodo] = useState<Itodo[] | null>(null);
+  const [isFirst, setIsFirst] = useState(true);
+
+  useEffect(() => {
+    if (initialTodo !== null) setIsFirst(false);
+  }, [initialTodo]);
 
   const sortByDuedate = (todos: Itodo[]): Itodo[] => {
-    return todos.sort(
+    const newTodos = JSON.parse(JSON.stringify(todos)) as Itodo[];
+    return newTodos.sort(
       (a, b) =>
         date.convertToNumber(a.dueDate) - date.convertToNumber(b.dueDate),
     );
@@ -27,10 +34,12 @@ const useFilter = () => {
   const applyFilter = (todos: Itodo[], filter: Tfilter): Itodo[] => {
     if (initialTodo === null) setInitialTodo(todos);
 
-    let sorted: Itodo[] | null = null;
-    if (filter.sort === Sort.DUE_DATE) sorted = sortByDuedate(todos);
+    let data: Itodo[] | null = null;
 
-    return filterByProgress(sorted || (initialTodo as Itodo[]), filter);
+    if (filter.sort === Sort.DUE_DATE) data = sortByDuedate(todos);
+    else if (!isFirst && filter.sort === Sort.BASIC) data = todos;
+
+    return filterByProgress(data || (initialTodo as Itodo[]), filter);
   };
 
   return { filter, setFilter, applyFilter };
