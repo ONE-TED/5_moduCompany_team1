@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { Itodo, Sort, Tfilter } from 'types';
 import { TodoDate } from 'utils/todoDate';
 
@@ -11,12 +11,6 @@ const initialFilter: Tfilter = {
 const useFilter = () => {
   const date = new TodoDate();
   const [filter, setFilter] = useState<Tfilter>(initialFilter);
-  const [initialTodo, setInitialTodo] = useState<Itodo[] | null>(null);
-  const [isFirst, setIsFirst] = useState(true);
-
-  useEffect(() => {
-    if (initialTodo !== null) setIsFirst(false);
-  }, [initialTodo]);
 
   const sortByDuedate = (todos: Itodo[]): Itodo[] => {
     const newTodos = JSON.parse(JSON.stringify(todos)) as Itodo[];
@@ -32,14 +26,11 @@ const useFilter = () => {
   };
 
   const applyFilter = (todos: Itodo[], filter: Tfilter): Itodo[] => {
-    if (initialTodo === null) setInitialTodo(todos);
-
     let data: Itodo[] | null = null;
-
     if (filter.sort === Sort.DUE_DATE) data = sortByDuedate(todos);
-    else if (!isFirst && filter.sort === Sort.BASIC) data = todos;
+    else data = todos;
 
-    return filterByProgress(data || (initialTodo as Itodo[]), filter);
+    return filterByProgress(data, filter);
   };
 
   return { filter, setFilter, applyFilter };
